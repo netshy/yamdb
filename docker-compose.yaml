@@ -14,14 +14,14 @@ services:
     env_file: 
       - ./api_yamdb/.env 
  
-  web: 
+  web:
     build: .
     restart: always 
     command: gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8000 
     volumes:
-      - static_volume:/home/netsh/dev/yamdb_final/static
+      - static_volume:/code/static
     ports: 
-      - "8000:8000" 
+      - 8000:8000
     depends_on: 
       - db 
     env_file: 
@@ -31,10 +31,12 @@ services:
       - POSTGRES_PASSWORD=netshy 
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     volumes:
-      - static_volume:/home/netsh/dev/yamdb_final/static
+      - static_volume:/code/static
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - web

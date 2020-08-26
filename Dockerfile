@@ -1,8 +1,6 @@
 # pull official base image
 FROM python:3.8.3-alpine
 
-MAINTAINER Ivan Lundak <n3tshy@gmail.com>
-
 # set work directory
 WORKDIR /code
 
