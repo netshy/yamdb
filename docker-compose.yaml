@@ -12,7 +12,7 @@ services:
     volumes: 
       - postgres_data:/var/lib/postgresql/data/ 
     env_file: 
-      - ./api_yamdb/.env 
+      - ./api_yamdb/.env  
  
   web:
     build: .
@@ -25,10 +25,7 @@ services:
     depends_on: 
       - db 
     env_file: 
-      - ./api_yamdb/.env 
-    environment: 
-      - POSTGRES_USER=netshy 
-      - POSTGRES_PASSWORD=netshy 
+      - ./api_yamdb/.env  
 
   nginx:
     build:
