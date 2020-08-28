@@ -20,7 +20,8 @@ v1_router.register('genres', GenreViewSet)
 v1_router.register('titles', TitleViewSet, basename='titles')
 v1_router.register(r'titles/(?P<title_id>\d+)/reviews',
                    ReviewDetailViewSet, basename='review')
-v1_router.register(r'titles/(?P<title_id>\d+)/reviews/(?P<review_id>\d+)/comments',
+v1_router.register(r'titles/(?P<title_id>\d+)/reviews/('
+                   r'?P<review_id>\d+)/comments',
                    ReviewCommentDetailViewSet, basename="reviews_comments")
 
 urlpatterns = [
@@ -29,8 +30,3 @@ urlpatterns = [
     path('v1/users/me/', UserInfo.as_view()),
     path('v1/', include(v1_router.urls))
 ]
-
-
-
-
-

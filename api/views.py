@@ -6,14 +6,16 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets, filters
 from rest_framework.decorators import api_view, authentication_classes
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, \
+    IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import AccessToken
 
 from .filters import ModelFilter
 from .models import User, Category, Genre, Title, Review
-from .permissions import AdminPermission, GeneralPermission, ReviewOwnerPermission
+from .permissions import AdminPermission, GeneralPermission, \
+    ReviewOwnerPermission
 from .serializers import (
     UserEmailSerializer,
     ConfirmationCodeSerializer,
