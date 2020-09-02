@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import User, Category, Genre, Title, Comment, Review
 
 
@@ -14,7 +15,9 @@ class ConfirmationCodeSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'role', 'email', 'first_name', 'last_name', 'bio')
+        fields = (
+            'username', 'role', 'email', 'first_name', 'last_name', 'bio'
+        )
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -30,8 +33,10 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class TitleSlugSerializer(serializers.ModelSerializer):
-    genre = serializers.SlugRelatedField(many=True, slug_field='slug', queryset=Genre.objects.all())
-    category = serializers.SlugRelatedField(slug_field='slug', queryset=Category.objects.all())
+    genre = serializers.SlugRelatedField(many=True, slug_field='slug',
+                                         queryset=Genre.objects.all())
+    category = serializers.SlugRelatedField(slug_field='slug',
+                                            queryset=Category.objects.all())
 
     class Meta:
         model = Title
@@ -54,11 +59,13 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'role', 'email', 'first_name', 'last_name', 'bio')
+        fields = (
+            'username', 'role', 'email', 'first_name', 'last_name', 'bio')
 
 
 class ReviewsSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(slug_field='username', read_only=True)
+    author = serializers.SlugRelatedField(slug_field='username',
+                                          read_only=True)
     score = serializers.IntegerField(min_value=1, max_value=10)
 
     def validate(self, data):
@@ -66,7 +73,8 @@ class ReviewsSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         if self.context['request'].method == 'PATCH':
             return data
-        is_review_exists = Review.objects.filter(title=title_id, author=user).exists()
+        is_review_exists = Review.objects.filter(title=title_id,
+                                                 author=user).exists()
         if is_review_exists:
             raise serializers.ValidationError('Вы уже оставили отзыв.')
         return data
@@ -78,7 +86,8 @@ class ReviewsSerializer(serializers.ModelSerializer):
 
 
 class CommentsSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(slug_field='username', read_only=True)
+    author = serializers.SlugRelatedField(slug_field='username',
+                                          read_only=True)
 
     class Meta:
         model = Comment

@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class UserRole(models.TextChoices):
@@ -10,7 +10,8 @@ class UserRole(models.TextChoices):
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
-    role = models.CharField(max_length=30, choices=UserRole.choices, default=UserRole.USER)
+    role = models.CharField(max_length=30, choices=UserRole.choices,
+                            default=UserRole.USER)
     bio = models.TextField(max_length=200, blank=True)
 
 
@@ -36,7 +37,8 @@ class Title(models.Model):
     description = models.TextField(max_length=200, null=True, blank=True)
     genre = models.ManyToManyField(Genre)
     category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, related_name="titles", null=True, blank=True
+        Category, on_delete=models.SET_NULL, related_name="titles", null=True,
+        blank=True
     )
 
     def __str__(self):
