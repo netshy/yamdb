@@ -1,5 +1,7 @@
 # Import all from normal settings
-from .settings import *
+import os
+
+from .settings import DATABASES, BASE_DIR
 
 # Delete postgres database
 DATABASES.pop('default')
